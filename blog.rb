@@ -7,6 +7,7 @@ class Blog
     @is_published = status
   end
   
+  #default view count
   def default_view_count
     @view_count
   end
