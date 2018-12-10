@@ -27,6 +27,21 @@ RSpec.describe Blog do
       end
     end
   end
+  
+  describe '#change_status' do
+    context 'from unpublish to publish' do
+      it 'change the status to publish' do
+        expect(subject.change_status).to eq(true)
+      end  
+    end
+    
+    context 'from publish to unpublish' do
+      subject {described_class.new(status: true)}
+      it 'change status to unpublish' do
+        expect(subject.change_status).to eq(false)
+      end
+    end
+  end
 
   describe '#is_blog_popular?' do
     ##we use context when there are paths in method

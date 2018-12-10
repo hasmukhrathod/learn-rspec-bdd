@@ -17,8 +17,14 @@ class Blog
     @is_published
   end
   
+  ##is this blog is popular?
   def is_blog_popular?
     @view_count > NO_OF_VIEW_FOR_POPULAR ? true : false
+  end
+  
+  ##from publish -> unpublish viceversa
+  def change_status
+    @is_published ? false : true
   end
   
 end
