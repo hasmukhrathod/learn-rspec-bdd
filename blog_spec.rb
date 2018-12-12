@@ -14,13 +14,13 @@ RSpec.describe Blog do
     ##Rightnow, there are 2 context of is_published? method
     ##1. publish, 2. not publish
     
-    context 'state is not published' do
+    context 'when state is not published' do
       it 'if status is false, then it is not published.' do
         expect(subject).to_not be_is_published
       end
     end
     
-    context 'state is published' do
+    context 'when state is published' do
       subject = described_class.new(status: true)
       it 'if status is true, then it is published.' do
         expect(subject).to be_is_published
@@ -29,13 +29,13 @@ RSpec.describe Blog do
   end
   
   describe '#change_status' do
-    context 'from unpublish to publish' do
+    context 'when from unpublish to publish' do
       it 'change the status to publish' do
         expect(subject.change_status).to eq(true)
       end  
     end
     
-    context 'from publish to unpublish' do
+    context 'when from publish to unpublish' do
       subject {described_class.new(status: true)}
       it 'change status to unpublish' do
         expect(subject.change_status).to eq(false)
@@ -46,7 +46,7 @@ RSpec.describe Blog do
   describe '#is_blog_popular?' do
     ##we use context when there are paths in method
     ##Here two paths: 1 blog is popular, 2 blog is not popular
-    context 'blog is popular' do
+    context 'when blog is popular' do
       #default subject is override
       subject { described_class.new(initial_view_count: 105) }
       it 'if view_count is greater than 100' do
@@ -54,7 +54,7 @@ RSpec.describe Blog do
       end
     end
     
-    context 'blog is not popular' do
+    context 'when blog is not popular' do
       subject { described_class.new(initial_view_count: 50) }
       it 'if view_count is less than 100' do
         expect(subject).to_not be_is_blog_popular
