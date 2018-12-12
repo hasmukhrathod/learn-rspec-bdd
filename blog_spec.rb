@@ -21,7 +21,7 @@ RSpec.describe Blog do
     end
     
     context 'when state is published' do
-      subject = described_class.new(status: true)
+      subject = described_class.new(status: true, title: 'ジーンズ')
       it 'if status is true, then it is published.' do
         expect(subject).to be_is_published
       end
@@ -29,6 +29,9 @@ RSpec.describe Blog do
   end
   
   describe '#change_status' do
+    before do
+      @title = 'ライトオン'
+    end
     context 'when from unpublish to publish' do
       it 'change the status to publish' do
         expect(subject.change_status).to eq(true)
@@ -36,9 +39,10 @@ RSpec.describe Blog do
     end
     
     context 'when from publish to unpublish' do
-      subject {described_class.new(status: true)}
+      subject {described_class.new(status: true, title: @title)}
       it 'change status to unpublish' do
         expect(subject.change_status).to eq(false)
+        expect(subject.get_title).to eq(@title)
       end
     end
   end
