@@ -2,6 +2,7 @@ class Blog
   
   NO_OF_VIEW_FOR_POPULAR = 100
   
+  #Expecting hash as an argument
   def initialize(initial_view_count: 0, status: false, title: '')
     @view_count = initial_view_count
     @is_published = status

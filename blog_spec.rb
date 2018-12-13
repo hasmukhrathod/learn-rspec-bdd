@@ -29,9 +29,19 @@ RSpec.describe Blog do
   end
   
   describe '#change_status' do
-    before do
-      @title = 'ライトオン'
-    end
+    # before do
+    #   @title = 'ライトオン'
+    # end
+    
+    let(:params) {{status: true, title: 'ライトオン'}}
+    
+    # let(:params) { { name: 'たろう' } } と同じ意味のコード
+    # let(:params) do
+    #   hash = {}
+    #   hash[:name] = 'たろう'
+    #   hash
+    # end
+    
     context 'when from unpublish to publish' do
       it 'change the status to publish' do
         expect(subject.change_status).to eq(true)
@@ -39,10 +49,10 @@ RSpec.describe Blog do
     end
     
     context 'when from publish to unpublish' do
-      subject {described_class.new(status: true, title: @title)}
+      subject {described_class.new(params)}
       it 'change status to unpublish' do
         expect(subject.change_status).to eq(false)
-        expect(subject.get_title).to eq(@title)
+        expect(subject.get_title).to eq(params[:title])
       end
     end
   end
@@ -50,16 +60,22 @@ RSpec.describe Blog do
   describe '#is_blog_popular?' do
     ##we use context when there are paths in method
     ##Here two paths: 1 blog is popular, 2 blog is not popular
+    
+    let(:popular) {105} #インスタンス変数
+    let(:non_popular) {99}
+    let(:params_popular) {{initial_view_count: popular}} #HASH
+    let(:params_non_popular) {{initial_view_count: non_popular}}
+    
     context 'when blog is popular' do
       #default subject is override
-      subject { described_class.new(initial_view_count: 105) }
+      subject { described_class.new(params_popular) }
       it 'if view_count is greater than 100' do
         expect(subject).to be_is_blog_popular
       end
     end
     
     context 'when blog is not popular' do
-      subject { described_class.new(initial_view_count: 50) }
+      subject { described_class.new(params_non_popular) }
       it 'if view_count is less than 100' do
         expect(subject).to_not be_is_blog_popular
       end
