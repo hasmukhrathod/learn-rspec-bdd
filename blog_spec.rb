@@ -41,12 +41,13 @@ RSpec.describe Blog do
     #   hash[:name] = 'たろう'
     #   hash
     # end
-    let(:status) {true}
+    
     let(:blog) {described_class.new(params)}
     subject {blog.change_status}
     
     context 'when from unpublish to publish' do
-      it {is_expected.to eq(false)}
+      let(:status) {true}
+      it {is_expected.to be_falsey}
       # it 'change the status to publish' do
       #   expect(subject.change_status).to eq(true)
       # end  
@@ -54,10 +55,7 @@ RSpec.describe Blog do
     
     context 'when from publish to unpublish' do
       let(:status) {false}
-      let(:blog) {described_class.new(params)}
-      subject {blog.change_status}
-      
-      it {is_expected.to eq(true)}
+      it {is_expected.to be_truthy}
       
       it 'change status to unpublish' do
         expect(blog.get_title).to eq(params[:title])
