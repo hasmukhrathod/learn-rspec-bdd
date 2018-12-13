@@ -61,21 +61,20 @@ RSpec.describe Blog do
     ##we use context when there are paths in method
     ##Here two paths: 1 blog is popular, 2 blog is not popular
     
-    let(:popular) {105} #インスタンス変数
-    let(:non_popular) {99}
-    let(:params_popular) {{initial_view_count: popular}} #HASH
-    let(:params_non_popular) {{initial_view_count: non_popular}}
+    let(:blog_params) {{initial_view_count: blog_view_count}} #HASH
     
     context 'when blog is popular' do
       #default subject is override
-      subject { described_class.new(params_popular) }
+      let(:blog_view_count) {101}
+      subject { described_class.new(blog_params) }
       it 'if view_count is greater than 100' do
         expect(subject).to be_is_blog_popular
       end
     end
     
     context 'when blog is not popular' do
-      subject { described_class.new(params_non_popular) }
+      let(:blog_view_count) {99}
+      subject { described_class.new(blog_params) }
       it 'if view_count is less than 100' do
         expect(subject).to_not be_is_blog_popular
       end
