@@ -16,14 +16,16 @@ RSpec.describe Blog do
     
     context 'when state is not published' do
       it 'if status is false, then it is not published.' do
-        expect(subject).to_not be_is_published
+        #expect(subject).to_not be_is_published
+        is_expected.to_not be_is_published 
       end
     end
     
     context 'when state is published' do
       subject = described_class.new(status: true, title: 'ジーンズ')
       it 'if status is true, then it is published.' do
-        expect(subject).to be_is_published
+        #expect(subject).to be_is_published
+        is_expected.to be_is_published
       end
     end
   end
