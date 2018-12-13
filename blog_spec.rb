@@ -16,16 +16,14 @@ RSpec.describe Blog do
     
     context 'when state is not published' do
       it 'if status is false, then it is not published.' do
-        #expect(subject).to_not be_is_published
-        is_expected.to_not be_is_published 
+        expect(subject).to_not be_is_published
       end
     end
     
     context 'when state is published' do
       subject = described_class.new(status: true, title: 'ジーンズ')
       it 'if status is true, then it is published.' do
-        #expect(subject).to be_is_published
-        is_expected.to be_is_published
+        expect(subject).to be_is_published
       end
     end
   end
@@ -35,7 +33,7 @@ RSpec.describe Blog do
     #   @title = 'ライトオン'
     # end
     
-    let(:params) {{status: true, title: 'ライトオン'}}
+    let(:params) {{status: status, title: 'ライトオン'}}
     
     # let(:params) { { name: 'たろう' } } と同じ意味のコード
     # let(:params) do
@@ -43,18 +41,26 @@ RSpec.describe Blog do
     #   hash[:name] = 'たろう'
     #   hash
     # end
+    let(:status) {true}
+    let(:blog) {described_class.new(params)}
+    subject {blog.change_status}
     
     context 'when from unpublish to publish' do
-      it 'change the status to publish' do
-        expect(subject.change_status).to eq(true)
-      end  
+      it {is_expected.to eq(false)}
+      # it 'change the status to publish' do
+      #   expect(subject.change_status).to eq(true)
+      # end  
     end
     
     context 'when from publish to unpublish' do
-      subject {described_class.new(params)}
+      let(:status) {false}
+      let(:blog) {described_class.new(params)}
+      subject {blog.change_status}
+      
+      it {is_expected.to eq(true)}
+      
       it 'change status to unpublish' do
-        expect(subject.change_status).to eq(false)
-        expect(subject.get_title).to eq(params[:title])
+        expect(blog.get_title).to eq(params[:title])
       end
     end
   end
